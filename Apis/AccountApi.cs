@@ -6,8 +6,8 @@ public static class AccountApi
 {
 	public static RouteGroupBuilder MapAccountApi(this RouteGroupBuilder builder)
 	{
-		builder.MapGet("/test", TestAsync);
-		builder.MapGet("/create", CreateUserAsync);
+		builder.MapPut("/test", TestAsync);
+		builder.MapPost("/create", CreateUserAsync);
 
 		return builder;
 	}
