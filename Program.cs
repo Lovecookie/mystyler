@@ -21,8 +21,12 @@ var app = builder.Build();
 //	app.UseSwaggerUI();
 //}
 
+app.MapGroup("api/v1/account")
+	.MapAccountApi()
+	.RequireAuthorization();
+
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.Run();
