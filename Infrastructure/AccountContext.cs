@@ -1,22 +1,32 @@
 ﻿
-using Microsoft.EntityFrameworkCore;
+
+using shipcret_server_dotnet.Model;
 
 namespace shipcret_server_dotnet.Infrastructure;
 
 
-public class AccountContext :DbContext
+public class AccountContext : DbContext
 {
-	public AccountContext(DbContextOptions<AccountContext> options, IConfiguration configuration) : base(options)
+	public DbSet<User> Users { get; set; }
+
+	private readonly IMediator _mediator;
+	private IDbContextTransaction? _transaction;
+
+
+	public bool HasActiveTransaction => _transaction != null;
+	public IDbContextTransaction? GetTransaction() => _transaction;	
+	
+
+	public AccountContext(DbContextOptions<AccountContext> options, IMediator mediator ) : base(options)
 	{
+		_mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+
+		System.Diagnostics.Debug.WriteLine("AccountContext::ctor ->" + this.GetHashCode());
 	}
 
-	//public DbSet<User> Users { get; set; } = default!;
-	//public DbSet<RefreshToken> RefreshTokens { get; set; } = default!;
-	//public DbSet<PasswordResetToken> PasswordResetTokens { get; set; } = default!;
-	//public DbSet<EmailConfirmationToken> EmailConfirmationToken { get; set; } = default!;
+	protected override void OnModelCreating(ModelBuilder builder)
+	{
+		base.OnModelCreating(builder);
+	}
 
-	//protected override void OnModelCreating(ModelBuilder modelBuilder)
-	//{
-	//	modelBuilder.ApplyConfigurationsFromAssembly(typeof(AccountContext).Assembly);
-	//}
 }

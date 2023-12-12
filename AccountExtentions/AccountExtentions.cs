@@ -6,8 +6,7 @@ public static class AccountExtentions
 
 	public static void AddApplicationServices(this IHostApplicationBuilder builder)
 	{
-		builder.AddDefaultAuthentication();
-		
+		// builder.AddNpgsqlDbContext<AccountContext>(new )
 	}
 	
 }

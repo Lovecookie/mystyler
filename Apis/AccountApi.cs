@@ -1,72 +1,23 @@
 ﻿
 
-using shipcret_server_dotnet.Apis;
+namespace shipcret_server_dotnet.Apis;
 
-public static class AccountApi
+
+public static class AccountApis
 {
-	public static RouteGroupBuilder MapAccountApi(this RouteGroupBuilder builder)
+	public static WebApplication MapAccountApis(this WebApplication app)
 	{
-		builder.MapPut("/test", TestAsync);
-		builder.MapPost("/create", CreateUserAsync);
+		var root = app.MapGroup("/api/v1/account")
+			.WithTags("account")
+			.WithOpenApi();
 
-		return builder;
+		root.MapPost("/create", CreateUser);
 	}
 
-	public static async Task<Results<Ok, BadRequest<string>, ProblemHttpResult>> TestAsync(
-		[FromHeader(Name = "x-requestid")] Guid requestId,
-		TestCommand command,
-		[AsParameters] AccountServices services )
+	public static async Task<IResult> CreateUser([FromBody] User user, [FromServices] IAccountService accountService)
 	{
-		if(requestId == Guid.Empty)
-		{
-			return TypedResults.BadRequest("Empty GUID.");
-		}
+		var result = await accountService.CreateUser(user);
 
-		var testCommand = new IdentifiedCommand<TestCommand, bool>(command, requestId);
-
-		services.Logger.LogInformation(
-						"Send command: {CommandName} - {IdProperty}: {CommandId} ({@Command})",
-						testCommand.GetGenericTypeName(),
-						nameof(testCommand.Command.TestString),
-						testCommand.Command.TestString,
-						testCommand);
-
-		var commandResult = await services.Mediator.Send(testCommand);
-
-		if (!commandResult)
-		{
-			return TypedResults.Problem(detail: "create user is failed to process.", statusCode: 500);
-		}
-
-		return TypedResults.Ok();
-	}
-
-	public static async Task<Results<Ok, BadRequest<string>, ProblemHttpResult>> CreateUserAsync(
-		[FromHeader(Name = "x-requestid")] Guid requestId,
-		CreateUserCommand command,
-		[AsParameters] AccountServices services )
-	{
-		if(requestId == Guid.Empty)
-		{
-			return TypedResults.BadRequest("Empty GUID.");
-		}
-
-		var requestCreateUser = new IdentifiedCommand<CreateUserCommand, bool>(command, requestId);
-
-		services.Logger.LogInformation(
-			"Send command: {CommandName} - {IdProperty}: {CommandId} ({@Command})",
-			requestCreateUser.GetGenericTypeName(),
-			nameof(requestCreateUser.Command.UserName),
-			requestCreateUser.Command.UserName,
-			requestCreateUser);
-
-		var commandResult = await services.Mediator.Send(requestCreateUser);
-
-		if (!commandResult)
-		{
-			return TypedResults.Problem(detail: "create user is failed to process.", statusCode: 500);
-		}
-
-		return TypedResults.Ok();
+		return result;
 	}
 }
