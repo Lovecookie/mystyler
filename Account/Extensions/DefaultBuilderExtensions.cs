@@ -3,7 +3,7 @@
 using FluentValidation;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using shipcret_server_dotnet.DependencyInjection;
+using shipcret_server_dotnet.Account.DependencyInjection;
 using System.Globalization;
 using System.Reflection;
 using System.Text.Json;
@@ -50,8 +50,14 @@ public static class DefaultBuilderExtensions
 				{
 					Name = "Shipcret API",
 					Email = "silver2000cs@gmail.com",
-					Url = new Uri(""),
+					Url = new Uri("https://github.com/Lovecookie/mystyler"),
 				},
+				License = new OpenApiLicense
+				{
+					Name = "Shipcret API - License - MIT",
+					Url = new Uri("https://opensource.org/licenses/MIT")
+				},
+				TermsOfService = new Uri("https://github.com/Lovecookie/mystyler")
 			});
 
 			var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

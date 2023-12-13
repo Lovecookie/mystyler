@@ -1,23 +1,16 @@
 
+using shipcret_server_dotnet.Account.Extenstions;
+using shipcret_server_dotnet.Account.Extentions;
+using shipcret_server_dotnet.Extenstions;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
-builder.AddConfigureApplicationBuilder();
-builder.AddApplicationServices();
+var builder = WebApplication.CreateBuilder(args)
+	.AddConfigureApplicationBuilder()
+	.AddAccountApplicationServices();
 
 builder.Services.AddAuthorization();
 
-var app = builder.Build();
-
-//app.MapGroup("api/v1/account")
-//	.MapAccountApi()
-//	.RequireAuthorization();
-
-////app.UseHttpsRedirection();
-//app.UseAuthorization();
+var app = builder
+	.Build()
+	.AccountConfigureApplication();
 
 app.Run();

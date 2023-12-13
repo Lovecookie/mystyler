@@ -34,4 +34,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\DbContexts\" />
+    <Folder Include="Infrastructure\Responses\" />
+  </ItemGroup>
+
 </Project>

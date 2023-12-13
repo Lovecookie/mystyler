@@ -1,5 +1,5 @@
 ﻿
-namespace shipcret_server_dotnet.Model;
+namespace shipcret_server_dotnet.Infrastructure.Entities;
 
 
 public class PaginatedItems<TEntity>(int pageIndex, int pageSize, long count, IEnumerable<TEntity> data)

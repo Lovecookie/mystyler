@@ -2,13 +2,14 @@
 
 
 using Serilog;
+using shipcret_server_dotnet.Account.Apis;
 using System.Globalization;
 
-namespace shipcret_server_dotnet.Extenstions;
+namespace shipcret_server_dotnet.Account.Extenstions;
 
 public static class DefaultExtentions
 {
-	public static WebApplication WebApplication(this WebApplication app)
+	public static WebApplication AccountConfigureApplication(this WebApplication app)
 	{
 		app.UseSerilogRequestLogging();
 
@@ -24,6 +25,8 @@ public static class DefaultExtentions
 			options.SwaggerEndpoint("swagger/v1/swagger.json", $"Shipcret API - {textInfo.ToTitleCase(app.Environment.EnvironmentName)} - V1");
 		});
 
-		app.Mapp
+		app.MapAccountApis();
+
+		return app;
 	}
 }

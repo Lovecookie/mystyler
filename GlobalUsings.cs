@@ -12,4 +12,3 @@ global using System.ComponentModel.DataAnnotations;
 global using shipcret_server_dotnet.EventBus.Extensions;
 global using shipcret_server_dotnet.Infrastructure;
 global using shipcret_server_dotnet.Commands;
-global using shipcret_server_dotnet.AccountExtenstions;

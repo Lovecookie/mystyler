@@ -1,13 +1,9 @@
 ﻿
 
-namespace shipcret_server_dotnet.Model;
+namespace shipcret_server_dotnet.Infrastructure.Entities;
 
-
-public class User
+public record UserEntity : UserEntityBase
 {
-	[Required]
-	public Int64 Uid { get; set; }
-
 	[Required]
 	public string UserName { get; set; } = default!;
 
