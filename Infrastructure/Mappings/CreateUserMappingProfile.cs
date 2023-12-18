@@ -1,8 +1,8 @@
 ﻿
 using AutoMapper;
+using shipcret_server_dotnet.Account.Requests;
+using shipcret_server_dotnet.DatabaseCore.Entities;
 using shipcret_server_dotnet.Infrastructure.Commands;
-using shipcret_server_dotnet.Infrastructure.Entities;
-using shipcret_server_dotnet.Infrastructure.Requests;
 
 public class CreateUserMappingProfile : Profile
 {
@@ -10,6 +10,6 @@ public class CreateUserMappingProfile : Profile
 	{
 		CreateMap<CreateUserRequest, CreateUserCommand>();
 
-		CreateMap<CreateUserCommand, UserEntity>();
+		CreateMap<CreateUserCommand, UserBasicEntity>();
 	}
 }

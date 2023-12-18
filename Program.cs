@@ -1,6 +1,6 @@
 
+using shipcret_server_dotnet.Account.Extensions;
 using shipcret_server_dotnet.Account.Extenstions;
-using shipcret_server_dotnet.Account.Extentions;
 using shipcret_server_dotnet.Extenstions;
 
 var builder = WebApplication.CreateBuilder(args)

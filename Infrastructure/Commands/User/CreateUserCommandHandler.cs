@@ -1,11 +1,13 @@
 ﻿
 
+using shipcret_server_dotnet.DatabaseCore.Entities;
+using shipcret_server_dotnet.DatabaseCore.Repositories;
 using shipcret_server_dotnet.Infrastructure.Commands;
-using shipcret_server_dotnet.Infrastructure.Entities;
 
-public class CreateUserHandler : IRequestHandler<CreateUserCommand, UserEntity>
+public class CreateUserHandler(
+	IUserBasicRepository userBasicRepository) : IRequestHandler<CreateUserCommand, UserBasicEntity>
 {
-	public async Task<UserEntity> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+	public async Task<UserBasicEntity> Handle(CreateUserCommand request, CancellationToken cancellationToken)
 	{
 		//public string? UserName { get; init; }
 
@@ -17,7 +19,7 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, UserEntity>
 
 		//public string? PictureName { get; init; }
 
-		var user = new UserEntity
+		var user = new UserBasicEntity
 		{
 			UserId = 1,
 			UserName = request.UserName!,
@@ -27,6 +29,6 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, UserEntity>
 			PictureName = request.PictureName!
 		};
 
-		return await Task.FromResult(user);
+		return await userBasicRepository.CreateAsync(user, cancellationToken);
 	}
 }
