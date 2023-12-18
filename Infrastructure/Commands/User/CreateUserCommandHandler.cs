@@ -5,7 +5,8 @@ using shipcret_server_dotnet.DatabaseCore.Repositories;
 using shipcret_server_dotnet.Infrastructure.Commands;
 
 public class CreateUserHandler(
-	IUserBasicRepository userBasicRepository) : IRequestHandler<CreateUserCommand, UserBasicEntity>
+	IUserBasicRepository userBasicRepository,
+	ILogger<CreateUserHandler> logger ) : IRequestHandler<CreateUserCommand, UserBasicEntity>
 {
 	public async Task<UserBasicEntity> Handle(CreateUserCommand request, CancellationToken cancellationToken)
 	{
@@ -18,6 +19,9 @@ public class CreateUserHandler(
 		//public string? PictureUrl { get; init; }
 
 		//public string? PictureName { get; init; }
+
+		logger.LogInformation(request.UserName, request.Email, request.Password, request.PictureUrl, request.PictureName);
+
 
 		var user = new UserBasicEntity
 		{

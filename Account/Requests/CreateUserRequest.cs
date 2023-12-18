@@ -1,20 +1,23 @@
-﻿namespace shipcret_server_dotnet.Account.Requests;
+﻿
+
+namespace shipcret_server_dotnet.Account.Requests;
+
 
 public record CreateUserRequest
 {
-    [Required]
+    [Required, JsonPropertyName("userName")]
     public string? UserName { get; init; }
 
-    [Required]
+    [Required, JsonPropertyName("email")]
     public string? Email { get; init; }
 
-    [Required]
+    [Required, JsonPropertyName("pw")]
     public string? Password { get; init; }
 
-    [Required]
+    [Required, JsonPropertyName("picUrl")]
     public string? PictureUrl { get; init; }
 
-    [Required]
+    [Required, JsonPropertyName("picName")]
     public string? PictureName { get; init; }
 
 }

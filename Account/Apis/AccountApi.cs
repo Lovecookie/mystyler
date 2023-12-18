@@ -1,7 +1,8 @@
-﻿using shipcret_server_dotnet.Account.Services;
+﻿using shipcret_server_dotnet.Account.Requests;
+using shipcret_server_dotnet.Account.Services;
 using shipcret_server_dotnet.Infrastructure.Commands;
 using shipcret_server_dotnet.Infrastructure.Features;
-using shipcret_server_dotnet.Infrastructure.Requests;
+
 
 namespace shipcret_server_dotnet.Account.Apis;
 
@@ -21,7 +22,7 @@ public static class AccountApis
             .WithSummary("Create User")
             .WithDescription("\n POST /create");
 
-        root.MapPost("/login", CreateUser)
+        root.MapPost("/login", LoginUser)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithSummary("Login User")
             .WithDescription("\n POST /login");
