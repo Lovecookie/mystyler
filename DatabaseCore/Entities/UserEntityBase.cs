@@ -1,6 +1,6 @@
 ﻿namespace shipcret_server_dotnet.DatabaseCore.Entities;
 
-public abstract record UserEntityBase
+public abstract class UserEntityBase
 {
     public long UserId { get; set; }
 

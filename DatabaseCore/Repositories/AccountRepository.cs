@@ -5,7 +5,7 @@ using shipcret_server_dotnet.DatabaseCore.Entities;
 
 namespace shipcret_server_dotnet.DatabaseCore.Repositories;
 
-public interface IUserBasicRepository : IDefaultRepository<Int64, UserBasicEntity>
+public interface IUserBasicRepository : IDefaultRepository<UserBasicEntity>
 {
 	Task<UserBasicEntity> CreateAsync(UserBasicEntity entity, CancellationToken cancellationToken);
 
@@ -13,11 +13,13 @@ public interface IUserBasicRepository : IDefaultRepository<Int64, UserBasicEntit
 
 internal class UserBasicRepository : IUserBasicRepository
 {
-	private readonly UserBasicDbContext _context;
+	private readonly AccountDbContext _context;
 	private readonly TimeProvider _timeProvider;
+
+	public IUnitOfWork UnitOfWork => _context;
 	
 
-	public UserBasicRepository(UserBasicDbContext context, TimeProvider timeProvider)
+	public UserBasicRepository(AccountDbContext context, TimeProvider timeProvider)
 	{ 
 		_timeProvider = timeProvider;
 		_context = context;

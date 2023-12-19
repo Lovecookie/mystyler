@@ -1,6 +1,8 @@
-﻿namespace shipcret_server_dotnet.DatabaseCore.Entities;
+﻿using shipcret_server_dotnet.DatabaseCore.Repositories;
 
-public record UserBasicEntity : UserEntityBase
+namespace shipcret_server_dotnet.DatabaseCore.Entities;
+
+public class UserBasicEntity : UserEntityBase, IAggregateRoot
 {
     [Required]
     public string UserName { get; set; } = default!;

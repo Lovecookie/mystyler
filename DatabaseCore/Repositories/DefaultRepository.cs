@@ -2,7 +2,18 @@
 
 namespace shipcret_server_dotnet.DatabaseCore.Repositories;
 
-public interface IDefaultRepository<TKey, TEntity>
-{
 
+
+
+
+public interface IAggregateRoot { }
+
+public interface IUnitOfWork : IDisposable
+{   
+}
+
+
+public interface IDefaultRepository<TEntity> where TEntity : IAggregateRoot
+{
+	IUnitOfWork UnitOfWork { get; }
 }
