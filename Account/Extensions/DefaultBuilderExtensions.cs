@@ -62,8 +62,8 @@ public static class DefaultBuilderExtensions
 
 			var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
 
-			options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
-			options.DocInclusionPredicate((name, api) => true);
+			//options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
+			//options.DocInclusionPredicate((name, api) => true);
 
 			services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 		});

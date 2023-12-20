@@ -15,7 +15,7 @@ public static class DefaultExtentions
 
 		app.UseHsts();
 
-		app.UseHttpsRedirection();
+		//app.UseHttpsRedirection();
 
 		var textInfo = CultureInfo.CurrentCulture.TextInfo;
 

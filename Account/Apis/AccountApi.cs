@@ -30,6 +30,15 @@ public static class AccountApis
         return app;
     }
 
+    public static async Task<IResult> Heatbeat(
+        [FromBody] HeartbeatRequest heatbeatRequest,
+        [AsParameters] AccountServices services )
+    {
+        var heatbeat = await services.Mediator.Send(heatbeatRequest);
+
+        return Results.Ok();
+    }
+
     public static async Task<IResult> CreateUser(
         [FromBody] CreateUserRequest createUserRequest,
         [AsParameters] AccountServices services
