@@ -14,10 +14,17 @@ public static class AccountApis
         var apiUri = $"/api/{ShipcretVersion.GlobalVersionByLower}/account";
 
         var root = app.MapGroup($"{apiUri}")
+            .WithGroupName(ShipcretVersion.GlobalVersionByLower)
             .WithTags("account")
             .WithOpenApi();
 
-        root.MapPost("/create", CreateUser)
+        root.MapGet("/heartbeat", Heartbeat)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithSummary("Heartbeat")
+            .WithDescription("\n GET /heartbeat");
+
+
+		root.MapPost("/create", CreateUser)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithSummary("Create User")
             .WithDescription("\n POST /create");
@@ -30,13 +37,17 @@ public static class AccountApis
         return app;
     }
 
-    public static async Task<IResult> Heatbeat(
-        [FromBody] HeartbeatRequest heatbeatRequest,
+    public static async Task<IResult> Heartbeat(
         [AsParameters] AccountServices services )
     {
-        var heatbeat = await services.Mediator.Send(heatbeatRequest);
+        var heartbeatCommand = new HeartbeatCommand
+        {
+            HeartBeat = "1"
+        };
 
-        return Results.Ok();
+        var heatbeat = await services.Mediator.Send(heartbeatCommand);
+
+        return Results.Ok(heatbeat!);
     }
 
     public static async Task<IResult> CreateUser(

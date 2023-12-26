@@ -13,15 +13,13 @@ public static class AccountExtensions
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssemblyContaining(typeof(Program));
-        });
+		});
 
 		builder.AddNpgsqlDbContext<AccountDbContext>("Account", settings => settings.DbContextPooling = false);
 
         services.AddHttpContextAccessor();
 
         services.AddSingleton(TimeProvider.System);
-
-        services.AddTransient<IAccountServices, AccountServices>();
 
         services.AddScoped<IUserBasicRepository, UserBasicRepository>();
 

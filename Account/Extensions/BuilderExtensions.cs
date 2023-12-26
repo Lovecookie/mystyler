@@ -22,7 +22,8 @@ public static class DefaultExtentions
 		app.UseSwagger();
 		app.UseSwaggerUI(options =>
 		{
-			options.SwaggerEndpoint("swagger/v1/swagger.json", $"Shipcret API - {textInfo.ToTitleCase(app.Environment.EnvironmentName)} - V1");
+			options.RoutePrefix = "swagger";
+			options.SwaggerEndpoint("v1/swagger.json", $"Shipcret API - {textInfo.ToTitleCase(app.Environment.EnvironmentName)} - V1");
 		});
 
 		app.MapAccountApis();

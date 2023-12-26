@@ -7,12 +7,9 @@ using shipcret_server_dotnet.Infrastructure.Commands;
 public class CreateUserHandler : IRequestHandler<CreateUserCommand, UserBasicEntity>
 {
 	private readonly IUserBasicRepository? _userBasicRepository;
-	private readonly ILogger<CreateUserHandler>? _logger;
-
-	public CreateUserHandler(IUserBasicRepository userBasicRepository, ILogger<CreateUserHandler> logger)
+	public CreateUserHandler(IUserBasicRepository userBasicRepository)
 	{
-		_userBasicRepository = userBasicRepository;
-		_logger = logger;
+		_userBasicRepository = userBasicRepository;		
 	}
 
 	public async Task<UserBasicEntity> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -27,7 +24,7 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, UserBasicEnt
 
 		//public string? PictureName { get; init; }
 
-		_logger!.LogInformation(request.UserName, request.Email, request.Password, request.PictureUrl, request.PictureName);
+		// _logger!.LogInformation(request.UserName, request.Email, request.Password, request.PictureUrl, request.PictureName);
 
 
 		var user = new UserBasicEntity
