@@ -11,18 +11,13 @@ public static class AccountApis
 {
     public static WebApplication MapAccountApis(this WebApplication app)
     {
-        var apiUri = $"/api/{ShipcretVersion.GlobalVersionByLower}/account";
+        var apiName = "account";
+        var apiUri = $"/api/{ShipcretVersion.GlobalVersionByLower}/{apiName}";
 
         var root = app.MapGroup($"{apiUri}")
             .WithGroupName(ShipcretVersion.GlobalVersionByLower)
-            .WithTags("account")
-            .WithOpenApi();
-
-        root.MapGet("/heartbeat", Heartbeat)
-            .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .WithSummary("Heartbeat")
-            .WithDescription("\n GET /heartbeat");
-
+            .WithTags(apiName)
+            .WithOpenApi(); 
 
 		root.MapPost("/create", CreateUser)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
@@ -33,6 +28,8 @@ public static class AccountApis
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithSummary("Login User")
             .WithDescription("\n POST /login");
+
+        Serilog.Log.Information("[Success] AccountApis mapped");        
 
         return app;
     }

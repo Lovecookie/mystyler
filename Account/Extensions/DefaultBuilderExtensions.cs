@@ -25,6 +25,8 @@ public static class DefaultBuilderExtensions
 			loggerConfiguration.ReadFrom.Configuration(hostContext.Configuration)
 			.Enrich.WithProperty("Assembly Version", assembly?.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version)
 			.Enrich.WithProperty("Aassembly Informational Version", assembly?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion);
+
+			loggerConfiguration.WriteTo.Console();
 		});
 
 		services.Configure<JsonOptions>(options =>

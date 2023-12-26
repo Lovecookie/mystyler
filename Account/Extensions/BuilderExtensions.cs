@@ -27,6 +27,7 @@ public static class DefaultExtentions
 		});
 
 		app.MapAccountApis();
+		app.MapHeartbeatApis();
 
 		return app;
 	}
