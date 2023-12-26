@@ -10,6 +10,6 @@ public class CreateUserMappingProfile : Profile
 	{
 		CreateMap<CreateUserRequest, CreateUserCommand>();
 
-		CreateMap<CreateUserCommand, UserBasicEntity>();
+		CreateMap<CreateUserCommand, AccountEntities>();
 	}
 }
