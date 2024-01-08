@@ -7,6 +7,7 @@ global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 global using System.Data;
 global using System.Data.Common;
+global using System.Reflection;
 global using System.Runtime.Serialization;
 global using System.ComponentModel.DataAnnotations;
 global using System.Text.Json.Serialization;

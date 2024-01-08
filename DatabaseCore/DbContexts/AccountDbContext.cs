@@ -1,8 +1,9 @@
 ﻿
+using Serilog.Core;
 using shipcret_server_dotnet.Account.Extensions;
 using shipcret_server_dotnet.DatabaseCore.Entities;
 using shipcret_server_dotnet.DatabaseCore.Repositories;
-using System.Reflection;
+using shipcret_server_dotnet.Infrastructure.Constants;
 
 namespace shipcret_server_dotnet.DatabaseCore.DbContexts;
 
@@ -37,7 +38,45 @@ public class AccountDbContext : DbContextAbstract
 	{
 		base.OnModelCreating(modelBuilder);
 
-		modelBuilder.HasDefaultSchema("account");
+		modelBuilder.HasDefaultSchema("accountdb");
+
+		_InitUserBasic(modelBuilder);
+
 		//modelBuilder.UseIntegrationEventLogs();		
+	}
+
+	private void _InitUserBasic(ModelBuilder modelBuilder)
+	{
+		modelBuilder.Entity<UserBasic>(entity =>
+		{
+			entity.ToTable("user_basic");
+
+			entity.HasKey(e => e.UserUid);
+
+			entity.Property(e => e.UserUid)				
+				.ValueGeneratedOnAdd();
+
+			entity.Property(e => e.UserId)				
+				.IsRequired()
+				.HasMaxLength(ConstantLength.UserId);
+
+			entity.Property(e => e.Email)				
+				.IsRequired()
+				.HasMaxLength(ConstantLength.EMail);
+
+			entity.Property(e => e.Password)				
+				.IsRequired()
+				.HasMaxLength(ConstantLength.Password);
+
+			entity.Property(e => e.PictureUrl)				
+				.IsRequired()
+				.HasMaxLength(ConstantLength.PictureUrl);
+
+			entity.Property(e => e.DateCreated)				
+				.IsRequired();
+
+			entity.Property(e => e.DateModified)
+				.IsRequired();
+		});
 	}
 }
