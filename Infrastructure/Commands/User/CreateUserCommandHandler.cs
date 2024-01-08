@@ -1,42 +1,25 @@
 ﻿
 
+using AutoMapper;
 using shipcret_server_dotnet.DatabaseCore.Entities;
 using shipcret_server_dotnet.DatabaseCore.Repositories;
 using shipcret_server_dotnet.Infrastructure.Commands;
 
-public class CreateUserHandler : IRequestHandler<CreateUserCommand, UserBasicEntity>
-{
-	private readonly IUserBasicRepository? _userBasicRepository;
-	public CreateUserHandler(IUserBasicRepository userBasicRepository)
+public class CreateUserHandler : IRequestHandler<CreateUserCommand, UserBasic>
+{	
+	private readonly IUserBasicRepository _userBasicRepository;
+	private readonly IMapper _mapper;
+
+	public CreateUserHandler(IUserBasicRepository userBasicRepository, IMapper mapper)
 	{
-		_userBasicRepository = userBasicRepository;		
+		_userBasicRepository = userBasicRepository;
+		_mapper = mapper;
 	}
 
-	public async Task<UserBasicEntity> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+	public async Task<UserBasic> Handle(CreateUserCommand request, CancellationToken cancellationToken)
 	{
-		//public string? UserName { get; init; }
+		var userEntity = _mapper.Map<UserBasic>(request);
 
-		//public string? Email { get; init; }
-
-		//public string? Password { get; init; }
-
-		//public string? PictureUrl { get; init; }
-
-		//public string? PictureName { get; init; }
-
-		// _logger!.LogInformation(request.UserName, request.Email, request.Password, request.PictureUrl, request.PictureName);
-
-
-		var user = new UserBasicEntity
-		{
-			UserId = 1,
-			UserName = request.UserName!,
-			Email = request.Email!,
-			Password = request.Password!,
-			PictureUrl = request.PictureUrl!,
-			PictureName = request.PictureName!
-		};
-
-		return await _userBasicRepository!.CreateAsync(user, cancellationToken);
+		return await _userBasicRepository.CreateAsync(userEntity, cancellationToken);
 	}
 }

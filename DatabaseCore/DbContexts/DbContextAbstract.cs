@@ -1,6 +1,4 @@
-﻿
-using shipcret_server_dotnet.DatabaseCore.Repositories;
-
+﻿using shipcret_server_dotnet.DatabaseCore.Repositories;
 
 
 namespace shipcret_server_dotnet.DatabaseCore.DbContexts;
@@ -8,7 +6,7 @@ namespace shipcret_server_dotnet.DatabaseCore.DbContexts;
 public abstract class DbContextAbstract : DbContext, IUnitOfWork
 {
 	protected readonly IMediator? _mediator;
-	protected readonly IDbContextTransaction? _transaction;
+	protected IDbContextTransaction? _transaction;
 
 	public DbContextAbstract(DbContextOptions options) : base(options)
 	{
@@ -22,6 +20,18 @@ public abstract class DbContextAbstract : DbContext, IUnitOfWork
 	public IDbContextTransaction? Transaction => _transaction;
 
 
-	protected bool _HasMediator => _mediator != null;
-	protected IMediator? _Mediator => _mediator;	
+	public bool HasMediator => _mediator != null;
+	public IMediator? Mediator => _mediator;
+
+	public async Task<IDbContextTransaction> BeginTransactionAsync()
+	{
+		if(HasTransaction)
+		{
+			return null;
+		}
+
+		_transaction = await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
+
+		return _transaction;
+	}
 }

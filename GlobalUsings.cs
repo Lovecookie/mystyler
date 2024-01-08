@@ -5,6 +5,7 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Storage;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+global using System.Data;
 global using System.Data.Common;
 global using System.Runtime.Serialization;
 global using System.ComponentModel.DataAnnotations;

@@ -1,39 +1,34 @@
 ﻿using shipcret_server_dotnet.DatabaseCore.Repositories;
+using shipcret_server_dotnet.Infrastructure.Constants;
 
 namespace shipcret_server_dotnet.DatabaseCore.Entities;
 
 
 
 /// <summary>
-///  UserBasicEntity
+///  UserBasic
 /// </summary>
-public class UserBasicEntity : UserEntityBase, IAggregateRoot
+public class UserBasic : UserEntityBase, IAggregateRoot
 {
-    [Required]
-    public string UserName { get; set; } = default!;
+	[MaxLength(ConstantLength.UserId)]
+    public string UserId { get; set; } = ""; 
 
-    [Required]
-    public string Email { get; set; } = default!;
+    [MaxLength(ConstantLength.EMail)]
+    public string Email { get; set; } = "";
 
-    [Required]
-    public string Password { get; set; } = default!;
+    [MaxLength(ConstantLength.Password)]
+    public string Password { get; set; } = "";
 
-    [Required]
-    public string PictureUrl { get; set; } = default!;
-
-    [Required]
-    public string PictureName { get; set; } = default!;
+    [MaxLength(ConstantLength.PictureUrl)]
+    public string PictureUrl { get; set; } = "";
 }
 
 
 /// <summary>
-/// PatronageEntity
+/// UserPatronage
 /// </summary>
-public class PatronageEntity : UserEntityBase, IAggregateRoot
+public class UserPatronage : UserEntityBase, IAggregateRoot
 {
-    [Required]
-    public Int64 UserUid { get; set; }
-
     [Required]
     public Int64 FollowerCount { get; set; }
 
@@ -48,7 +43,10 @@ public class PatronageEntity : UserEntityBase, IAggregateRoot
 }
 
 
-public class RecognitionEntity : UserEntityBase, IAggregateRoot
+/// <summary>
+/// UserRecognition
+/// </summary>
+public class UserRecognition : UserEntityBase, IAggregateRoot
 {
     [Required]
     public Int64 FamousValue { get; set; }

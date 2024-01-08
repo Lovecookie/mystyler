@@ -2,7 +2,8 @@
 
 public abstract class UserEntityBase
 {
-    public long UserId { get; set; }
+    [Key]
+    public long UserUid { get; set; }
 
     public DateTime DateCreated { get; set; }
 

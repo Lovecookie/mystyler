@@ -15,9 +15,14 @@ public static class AccountExtensions
             configuration.RegisterServicesFromAssemblyContaining(typeof(Program));
 		});
 
-		builder.AddNpgsqlDbContext<AccountDbContext>("Account", settings => settings.DbContextPooling = false);
+        builder.AddNpgsqlDbContext<AccountDbContext>("AccountDB",
+            settings => settings.DbContextPooling = false,
+            configureDbContextOptions: builder =>
+            {
+                builder.UseSnakeCaseNamingConvention();
+            });
 
-        services.AddHttpContextAccessor();
+		services.AddHttpContextAccessor();
 
         services.AddSingleton(TimeProvider.System);
 

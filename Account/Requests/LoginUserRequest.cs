@@ -5,7 +5,7 @@ public record LoginUserRequest
     [Required, JsonPropertyName("email")]
     public string? Email { get; init; }
 
-    [Required, JsonPropertyName("pw")]
+    [Required, JsonPropertyName("password")]
     public string? Password { get; init; }
 }
 
